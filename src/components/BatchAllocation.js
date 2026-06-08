@@ -2,12 +2,9 @@ import React, { useState, useEffect } from "react"
 import {
   Package,
   Plus,
-  QrCode,
-  Calendar,
   Factory,
   CheckCircle,
   AlertCircle,
-  Hash,
   Clipboard,
   Save,
 } from "lucide-react"
@@ -127,10 +124,10 @@ const BatchAllocation = () => {
     return `BT${year}${month}${day}${time}`
   }
 
-  const generateQRCode = batchId => {
-    // Generate unique QR code for each individual product in the batch
-    return `QR_${batchId}_${Date.now()}`
-  }
+  // const generateQRCode = batchId => {
+  //   // Generate unique QR code for each individual product in the batch
+  //   return `QR_${batchId}_${Date.now()}`
+  // }
 
   const generateIndividualQRCodes = (batchId, quantity) => {
     // Generate array of unique QR codes for each product in the batch
@@ -374,9 +371,9 @@ const BatchAllocation = () => {
     return new Date(dateString).toLocaleDateString("vi-VN")
   }
 
-  const formatDateTime = dateString => {
-    return new Date(dateString).toLocaleString("vi-VN")
-  }
+  // const formatDateTime = dateString => {
+  //   return new Date(dateString).toLocaleString("vi-VN")
+  // }
 
   return (
     <div className="batch-allocation">
@@ -417,8 +414,8 @@ const BatchAllocation = () => {
             <div className="batch-form form-grid">
               <div className="form-group">
                 <label>Sản phẩm *</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   list="products-list"
                   value={products.find(p => String(p.id) === String(batchForm.productId))?.name || ""}
                   onChange={e => {
@@ -443,8 +440,8 @@ const BatchAllocation = () => {
 
               <div className="form-group">
                 <label>Lô nguyên liệu đầu vào *</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   list="rm-list"
                   value={batchForm.rawMaterialBatchNumber}
                   onChange={e => {
@@ -482,8 +479,8 @@ const BatchAllocation = () => {
                     if (valStr === '') {
                       setBatchForm(prev => ({ ...prev, quantity: '', rawMaterialAmountUsed: '' }))
                     } else if (value >= 1) {
-                      setBatchForm(prev => ({ 
-                        ...prev, 
+                      setBatchForm(prev => ({
+                        ...prev,
                         quantity: value,
                         rawMaterialAmountUsed: (value * 0.05).toFixed(2)
                       }))
@@ -514,14 +511,14 @@ const BatchAllocation = () => {
                   )}
                 </div>
                 {batchForm.rawMaterialBatchNumber && batchForm.rawMaterialAmountUsed && (
-                  <div style={{ 
-                    marginTop: "4px", 
-                    fontSize: "0.85rem", 
+                  <div style={{
+                    marginTop: "4px",
+                    fontSize: "0.85rem",
                     color: Number(batchForm.rawMaterialAmountUsed) > (rawMaterials.find(rm => rm.batchNumber === batchForm.rawMaterialBatchNumber)?.quantity || 0) ? "#ef4444" : "#059669",
                     fontWeight: "500"
                   }}>
-                    {Number(batchForm.rawMaterialAmountUsed) > (rawMaterials.find(rm => rm.batchNumber === batchForm.rawMaterialBatchNumber)?.quantity || 0) 
-                      ? "Lượng tiêu hao vượt quá tồn kho khả dụng!" 
+                    {Number(batchForm.rawMaterialAmountUsed) > (rawMaterials.find(rm => rm.batchNumber === batchForm.rawMaterialBatchNumber)?.quantity || 0)
+                      ? "Lượng tiêu hao vượt quá tồn kho khả dụng!"
                       : "Số lượng hợp lệ."}
                   </div>
                 )}

@@ -43,6 +43,7 @@ apiClient.interceptors.response.use(
 );
 
 // Helpers
+// eslint-disable-next-line no-unused-vars
 const toDateTimeString = (input) => {
   const d = new Date(input);
   const pad = (n) => String(n).padStart(2, '0');

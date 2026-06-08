@@ -2,15 +2,11 @@ import React, { useState, useEffect } from "react"
 import {
   Truck,
   Plus,
-  Eye,
   CheckCircle,
   Clock,
   AlertCircle,
   Package,
   Building,
-  MapPin,
-  Calendar,
-  User,
   Hash,
   X,
   Save,
@@ -99,6 +95,7 @@ const ShipmentManagement = () => {
         b => String(b.batchId) === String(selectedBatch),
       )
       if (!batch) {
+        // eslint-disable-next-line eqeqeq
         batch = availableBatches.find(b => b.id == selectedBatch)
       }
       if (batch) {
@@ -135,8 +132,10 @@ const ShipmentManagement = () => {
       b => String(b.batchId) === String(selectedBatch),
     )
     if (!batch) {
+      // eslint-disable-next-line eqeqeq
       batch = availableBatches.find(b => b.id == selectedBatch)
     }
+    // eslint-disable-next-line eqeqeq
     const distributor = distributors.find(d => d.id == selectedDistributor)
 
     console.log("=== DEBUG ===")
@@ -506,9 +505,9 @@ const ShipmentManagement = () => {
                     </td>
                     <td>
                       {shipment.transactionHash && shipment.transactionHash.startsWith('0x') ? (
-                        <a 
-                          href={`https://sepolia.etherscan.io/tx/${shipment.transactionHash}`} 
-                          target="_blank" 
+                        <a
+                          href={`https://sepolia.etherscan.io/tx/${shipment.transactionHash}`}
+                          target="_blank"
                           rel="noopener noreferrer"
                           className="btn btn-outline btn-sm"
                           title="Xem trên Etherscan"
@@ -523,10 +522,10 @@ const ShipmentManagement = () => {
                           Chi tiết
                         </button>
                       )}
-                      
+
                       {shipment.status === "IN_TRANSIT" || shipment.status === "PENDING" ? (
-                        <button 
-                          className="btn btn-outline btn-sm" 
+                        <button
+                          className="btn btn-outline btn-sm"
                           style={{ color: '#dc2626', borderColor: '#fca5a5', marginLeft: '8px' }}
                           onClick={() => handleCancelShipment(shipment.shipmentId || shipment.id)}
                           title="Hủy vận đơn"

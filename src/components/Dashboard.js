@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Factory, 
-  Package, 
-  Truck, 
+import {
+  Factory,
+  Package,
+  Truck,
   TrendingUp,
   AlertCircle,
   Activity,
   Users,
-  CheckCircle,
-  Clock,
   Plus,
   BarChart3
 } from 'lucide-react';
@@ -33,10 +31,10 @@ const Dashboard = () => {
     const fetchDashboardData = async () => {
       try {
         setLoading(true);
-        
+
         // Fetch real data from API
         const response = await manufacturerService.getDashboardData();
-        
+
         if (response.success && response.data) {
           setStats(response.data.stats || {
             totalProducts: 0,
@@ -106,7 +104,7 @@ const Dashboard = () => {
     const diff = now - timestamp;
     const minutes = Math.floor(diff / (1000 * 60));
     const hours = Math.floor(diff / (1000 * 60 * 60));
-    
+
     if (minutes < 60) {
       return `${minutes} phút trước`;
     } else {
@@ -182,7 +180,7 @@ const Dashboard = () => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
                 <YAxis />
-                <Tooltip 
+                <Tooltip
                   formatter={(value, name) => [
                     value + ' lô',
                     name === 'production' ? 'Sản xuất' : 'Xuất hàng'
@@ -230,7 +228,7 @@ const Dashboard = () => {
           <h3>Hoạt động gần đây</h3>
           <p>Theo dõi các hoạt động sản xuất và xuất hàng mới nhất</p>
         </div>
-        
+
         <div className="activities-list">
           {recentActivities.length === 0 ? (
             <div className="no-activities">

@@ -16,6 +16,7 @@ const BatchProductItems = ({ batch, onClose }) => {
         if (batch && batch.id) {
             fetchItems();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [batch]);
 
     const fetchItems = async () => {
@@ -113,7 +114,7 @@ const BatchProductItems = ({ batch, onClose }) => {
                         </div>
                     </div>
                     <div className="header-actions">
-                        <button 
+                        <button
                             className="btn-download-all"
                             onClick={handleDownloadAll}
                             disabled={items.length === 0}
