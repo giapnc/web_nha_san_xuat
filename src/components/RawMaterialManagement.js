@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Package, Plus, CheckCircle, XCircle, FileText, Save, Check, X } from "lucide-react";
+import { Package, Plus, Save, Check, X } from "lucide-react";
 import manufacturerService from "../services/apiService";
 import "./RawMaterialManagement.css";
 
@@ -61,7 +61,7 @@ const RawMaterialManagement = () => {
         alert("Vui lòng điền các trường bắt buộc!");
         return;
       }
-      
+
       const payload = {
         ...newMaterial,
         quantity: parseFloat(newMaterial.quantity)
@@ -104,7 +104,7 @@ const RawMaterialManagement = () => {
 
   if (loading) return <div className="p-8">Đang tải dữ liệu...</div>;
 
-  const filteredMaterials = rawMaterials.filter(rm => 
+  const filteredMaterials = rawMaterials.filter(rm =>
     rm.batchNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
     rm.materialName.toLowerCase().includes(searchTerm.toLowerCase()) ||
     rm.supplierName.toLowerCase().includes(searchTerm.toLowerCase())
@@ -123,9 +123,9 @@ const RawMaterialManagement = () => {
       </div>
 
       <div className="search-bar" style={{ marginBottom: "20px" }}>
-        <input 
-          type="text" 
-          placeholder="Tìm kiếm theo Mã lô, Tên nguyên liệu, Nhà cung cấp..." 
+        <input
+          type="text"
+          placeholder="Tìm kiếm theo Mã lô, Tên nguyên liệu, Nhà cung cấp..."
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
           className="form-input"
@@ -194,18 +194,18 @@ const RawMaterialManagement = () => {
               <div className="form-group">
                 <label>Mã lô (Batch Number) *</label>
                 <div style={{ display: "flex", gap: "8px" }}>
-                  <input 
-                    type="text" 
-                    value={newMaterial.batchNumber} 
-                    onChange={e => setNewMaterial({...newMaterial, batchNumber: e.target.value})} 
-                    className="form-input" 
+                  <input
+                    type="text"
+                    value={newMaterial.batchNumber}
+                    onChange={e => setNewMaterial({...newMaterial, batchNumber: e.target.value})}
+                    className="form-input"
                     placeholder="Nhập mã lô hoặc bấm sinh mã..."
                   />
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     onClick={() => {
-                      const prefix = newMaterial.materialName 
-                        ? newMaterial.materialName.slice(0, 3).toUpperCase().replace(/[^A-Z]/g, "RAW") 
+                      const prefix = newMaterial.materialName
+                        ? newMaterial.materialName.slice(0, 3).toUpperCase().replace(/[^A-Z]/g, "RAW")
                         : "RAW";
                       const dateStr = new Date().toISOString().split("T")[0].replace(/-/g, "");
                       const randomSuffix = Math.floor(1000 + Math.random() * 9000);
@@ -223,11 +223,11 @@ const RawMaterialManagement = () => {
               </div>
               <div className="form-group">
                 <label>Tên Nguyên liệu (Hoạt chất) *</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   list="ingredients-list"
-                  value={newMaterial.materialName} 
-                  onChange={e => setNewMaterial({...newMaterial, materialName: e.target.value})} 
+                  value={newMaterial.materialName}
+                  onChange={e => setNewMaterial({...newMaterial, materialName: e.target.value})}
                   className="form-input"
                   placeholder="Gõ để tìm kiếm hoặc chọn hoạt chất..."
                 />

@@ -12,6 +12,7 @@ const Reports = () => {
     totalExported: 0,
     efficiency: 0
   });
+  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

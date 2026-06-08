@@ -5,12 +5,9 @@ import {
   Edit,
   Trash2,
   Search,
-  Filter,
   CheckCircle,
   XCircle,
-  Eye,
   Save,
-  X,
 } from "lucide-react"
 import manufacturerService from "../services/apiService"
 import "./ProductManagement.css"
@@ -18,6 +15,7 @@ import "./ProductManagement.css"
 const ProductManagement = () => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
+  // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState(null)
   const [fetchingRef, setFetchingRef] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
@@ -52,6 +50,7 @@ const ProductManagement = () => {
 
   useEffect(() => {
     fetchProducts()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const fetchProducts = async () => {
