@@ -35,7 +35,7 @@ const BatchProductManagement = () => {
         try {
             const token = localStorage.getItem('manufacturer_token');
             const response = await axios.get(
-                `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080'}/api/batches/with-items`,
+                `${process.env.REACT_APP_API_URL || 'http://localhost:8080'}/api/batches/with-items`,
                 {
                     headers: token ? { Authorization: `Bearer ${token}` } : {},
                 }
