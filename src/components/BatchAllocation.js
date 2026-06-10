@@ -281,11 +281,15 @@ const BatchAllocation = () => {
 
       // 5. Raw Material Inventory Validation
       if (batchForm.rawMaterialBatchNumber) {
-        const selectedRm = rawMaterials.find(rm => rm.batchNumber === batchForm.rawMaterialBatchNumber);
+        const selectedRm = rawMaterials.find(
+          rm => rm.batchNumber === batchForm.rawMaterialBatchNumber,
+        )
         if (selectedRm) {
-          const amountUsed = parseFloat(batchForm.rawMaterialAmountUsed) || 0;
+          const amountUsed = parseFloat(batchForm.rawMaterialAmountUsed) || 0
           if (amountUsed > selectedRm.quantity) {
-            throw new Error(`Thiếu nguyên liệu đầu vào! Lô nguyên liệu ${selectedRm.batchNumber} hiện chỉ còn ${selectedRm.quantity} ${selectedRm.unit}, không đủ để đáp ứng định mức sản xuất ${amountUsed} ${selectedRm.unit}.`);
+            throw new Error(
+              `Thiếu nguyên liệu đầu vào! Lô nguyên liệu ${selectedRm.batchNumber} hiện chỉ còn ${selectedRm.quantity} ${selectedRm.unit}, không đủ để đáp ứng định mức sản xuất ${amountUsed} ${selectedRm.unit}.`,
+            )
           }
         }
       }
@@ -417,13 +421,19 @@ const BatchAllocation = () => {
                 <input
                   type="text"
                   list="products-list"
-                  value={products.find(p => String(p.id) === String(batchForm.productId))?.name || ""}
+                  value={
+                    products.find(
+                      p => String(p.id) === String(batchForm.productId),
+                    )?.name || ""
+                  }
                   onChange={e => {
-                    const selectedProduct = products.find(p => p.name === e.target.value);
+                    const selectedProduct = products.find(
+                      p => p.name === e.target.value,
+                    )
                     if (selectedProduct) {
-                      handleProductChange(selectedProduct.id);
+                      handleProductChange(selectedProduct.id)
                     } else if (e.target.value === "") {
-                      handleProductChange("");
+                      handleProductChange("")
                     }
                   }}
                   className="form-input"
@@ -431,7 +441,9 @@ const BatchAllocation = () => {
                 />
                 <datalist id="products-list">
                   {products.map(product => (
-                    <option key={product.id} value={product.name}>
+                    <option
+                      key={product.id}
+                      value={product.name}>
                       {product.dosage}
                     </option>
                   ))}
@@ -445,25 +457,46 @@ const BatchAllocation = () => {
                   list="rm-list"
                   value={batchForm.rawMaterialBatchNumber}
                   onChange={e => {
-                    const val = e.target.value;
+                    const val = e.target.value
                     setBatchForm({
                       ...batchForm,
                       rawMaterialBatchNumber: val,
-                    });
+                    })
                   }}
                   className="form-input"
                   placeholder="Gõ để tìm kiếm lô nguyên liệu..."
                 />
                 <datalist id="rm-list">
                   {rawMaterials.map(rm => (
-                    <option key={rm.id} value={rm.batchNumber}>
+                    <option
+                      key={rm.id}
+                      value={rm.batchNumber}>
                       {rm.materialName} - Tồn: {rm.quantity} {rm.unit}
                     </option>
                   ))}
                 </datalist>
                 {batchForm.rawMaterialBatchNumber && (
-                  <div style={{ marginTop: "4px", fontSize: "0.85rem", color: "#059669" }}>
-                    Tồn kho khả dụng: <strong>{rawMaterials.find(rm => rm.batchNumber === batchForm.rawMaterialBatchNumber)?.quantity} {rawMaterials.find(rm => rm.batchNumber === batchForm.rawMaterialBatchNumber)?.unit}</strong>
+                  <div
+                    style={{
+                      marginTop: "4px",
+                      fontSize: "0.85rem",
+                      color: "#059669",
+                    }}>
+                    Tồn kho khả dụng:{" "}
+                    <strong>
+                      {
+                        rawMaterials.find(
+                          rm =>
+                            rm.batchNumber === batchForm.rawMaterialBatchNumber,
+                        )?.quantity
+                      }{" "}
+                      {
+                        rawMaterials.find(
+                          rm =>
+                            rm.batchNumber === batchForm.rawMaterialBatchNumber,
+                        )?.unit
+                      }
+                    </strong>
                   </div>
                 )}
               </div>
@@ -476,13 +509,17 @@ const BatchAllocation = () => {
                   onChange={e => {
                     const valStr = e.target.value
                     const value = Number(valStr)
-                    if (valStr === '') {
-                      setBatchForm(prev => ({ ...prev, quantity: '', rawMaterialAmountUsed: '' }))
+                    if (valStr === "") {
+                      setBatchForm(prev => ({
+                        ...prev,
+                        quantity: "",
+                        rawMaterialAmountUsed: "",
+                      }))
                     } else if (value >= 1) {
                       setBatchForm(prev => ({
                         ...prev,
                         quantity: value,
-                        rawMaterialAmountUsed: (value * 0.05).toFixed(2)
+                        rawMaterialAmountUsed: (value * 0.05).toFixed(2),
                       }))
                     }
                   }}
@@ -494,34 +531,64 @@ const BatchAllocation = () => {
 
               <div className="form-group">
                 <label>Lượng nguyên liệu tiêu hao *</label>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                   <input
                     type="number"
                     value={batchForm.rawMaterialAmountUsed}
-                    onChange={e => setBatchForm({...batchForm, rawMaterialAmountUsed: e.target.value})}
+                    onChange={e =>
+                      setBatchForm({
+                        ...batchForm,
+                        rawMaterialAmountUsed: e.target.value,
+                      })
+                    }
                     placeholder="VD: 5"
                     className="form-input"
                     min="0.01"
                     step="0.01"
                   />
                   {batchForm.rawMaterialBatchNumber && (
-                    <span style={{ whiteSpace: "nowrap", color: "#4b5563", fontSize: "14px" }}>
-                      {rawMaterials.find(rm => rm.batchNumber === batchForm.rawMaterialBatchNumber)?.unit}
+                    <span
+                      style={{
+                        whiteSpace: "nowrap",
+                        color: "#4b5563",
+                        fontSize: "14px",
+                      }}>
+                      {
+                        rawMaterials.find(
+                          rm =>
+                            rm.batchNumber === batchForm.rawMaterialBatchNumber,
+                        )?.unit
+                      }
                     </span>
                   )}
                 </div>
-                {batchForm.rawMaterialBatchNumber && batchForm.rawMaterialAmountUsed && (
-                  <div style={{
-                    marginTop: "4px",
-                    fontSize: "0.85rem",
-                    color: Number(batchForm.rawMaterialAmountUsed) > (rawMaterials.find(rm => rm.batchNumber === batchForm.rawMaterialBatchNumber)?.quantity || 0) ? "#ef4444" : "#059669",
-                    fontWeight: "500"
-                  }}>
-                    {Number(batchForm.rawMaterialAmountUsed) > (rawMaterials.find(rm => rm.batchNumber === batchForm.rawMaterialBatchNumber)?.quantity || 0)
-                      ? "Lượng tiêu hao vượt quá tồn kho khả dụng!"
-                      : "Số lượng hợp lệ."}
-                  </div>
-                )}
+                {batchForm.rawMaterialBatchNumber &&
+                  batchForm.rawMaterialAmountUsed && (
+                    <div
+                      style={{
+                        marginTop: "4px",
+                        fontSize: "0.85rem",
+                        color:
+                          Number(batchForm.rawMaterialAmountUsed) >
+                          (rawMaterials.find(
+                            rm =>
+                              rm.batchNumber ===
+                              batchForm.rawMaterialBatchNumber,
+                          )?.quantity || 0)
+                            ? "#ef4444"
+                            : "#059669",
+                        fontWeight: "500",
+                      }}>
+                      {Number(batchForm.rawMaterialAmountUsed) >
+                      (rawMaterials.find(
+                        rm =>
+                          rm.batchNumber === batchForm.rawMaterialBatchNumber,
+                      )?.quantity || 0)
+                        ? "Lượng tiêu hao vượt quá tồn kho khả dụng!"
+                        : "Số lượng hợp lệ."}
+                    </div>
+                  )}
               </div>
 
               <div className="form-group">
@@ -610,7 +677,13 @@ const BatchAllocation = () => {
                     !batchForm.manufactureDate ||
                     !batchForm.rawMaterialBatchNumber ||
                     !batchForm.rawMaterialAmountUsed ||
-                    (batchForm.rawMaterialBatchNumber && batchForm.rawMaterialAmountUsed && Number(batchForm.rawMaterialAmountUsed) > (rawMaterials.find(rm => rm.batchNumber === batchForm.rawMaterialBatchNumber)?.quantity || 0))
+                    (batchForm.rawMaterialBatchNumber &&
+                      batchForm.rawMaterialAmountUsed &&
+                      Number(batchForm.rawMaterialAmountUsed) >
+                        (rawMaterials.find(
+                          rm =>
+                            rm.batchNumber === batchForm.rawMaterialBatchNumber,
+                        )?.quantity || 0))
                   }
                   className="btn btn-primary create-btn">
                   {loading ? (

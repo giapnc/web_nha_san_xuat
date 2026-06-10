@@ -104,24 +104,30 @@ const ShipmentManagement = () => {
     }
   }, [selectedBatch, availableBatches])
 
-  const handleCancelShipment = async (shipmentId) => {
-    if (!window.confirm("Bạn có chắc chắn muốn hủy vận đơn này không? Trạng thái sẽ được cập nhật lên Blockchain.")) {
-      return;
+  const handleCancelShipment = async shipmentId => {
+    if (
+      !window.confirm(
+        "Bạn có chắc chắn muốn hủy vận đơn này không? Trạng thái sẽ được cập nhật lên Blockchain.",
+      )
+    ) {
+      return
     }
 
-    setLoading(true);
+    setLoading(true)
     try {
-      await manufacturerService.updateShipmentStatus(shipmentId, "CANCELLED");
-      setSuccess("Hủy vận đơn thành công!");
-      loadData();
+      await manufacturerService.updateShipmentStatus(shipmentId, "CANCELLED")
+      setSuccess("Hủy vận đơn thành công!")
+      loadData()
     } catch (err) {
-      setError("Lỗi khi hủy vận đơn: " + (err.response?.data?.message || err.message));
+      setError(
+        "Lỗi khi hủy vận đơn: " + (err.response?.data?.message || err.message),
+      )
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
-  const handleCreateShipment = async (e) => {
+  const handleCreateShipment = async e => {
     if (!selectedBatch || !selectedDistributor) {
       setError("Vui lòng chọn lô thuốc và nhà phân phối")
       return
@@ -504,32 +510,43 @@ const ShipmentManagement = () => {
                       )}
                     </td>
                     <td>
-                      {shipment.transactionHash && shipment.transactionHash.startsWith('0x') ? (
+                      {shipment.transactionHash &&
+                      shipment.transactionHash.startsWith("0x") ? (
                         <a
                           href={`https://sepolia.etherscan.io/tx/${shipment.transactionHash}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="btn btn-outline btn-sm"
+                          className="btn btn-sm"
                           title="Xem trên Etherscan"
-                          style={{ color: '#4f46e5', textDecoration: 'none' }}
-                        >
+                          style={{ color: "#4f46e5", textDecoration: "none" }}>
                           <ExternalLink size={14} />
                           Blockchain
                         </a>
                       ) : (
-                        <button className="btn btn-outline btn-sm" disabled title="Chưa có dữ liệu Blockchain">
+                        <button
+                          className="btn btn-outline btn-sm"
+                          disabled
+                          title="Chưa có dữ liệu Blockchain">
                           <ExternalLink size={14} />
                           Chi tiết
                         </button>
                       )}
 
-                      {shipment.status === "IN_TRANSIT" || shipment.status === "PENDING" ? (
+                      {shipment.status === "IN_TRANSIT" ||
+                      shipment.status === "PENDING" ? (
                         <button
                           className="btn btn-outline btn-sm"
-                          style={{ color: '#dc2626', borderColor: '#fca5a5', marginLeft: '8px' }}
-                          onClick={() => handleCancelShipment(shipment.shipmentId || shipment.id)}
-                          title="Hủy vận đơn"
-                        >
+                          style={{
+                            color: "#dc2626",
+                            borderColor: "#fca5a5",
+                            marginLeft: "8px",
+                          }}
+                          onClick={() =>
+                            handleCancelShipment(
+                              shipment.shipmentId || shipment.id,
+                            )
+                          }
+                          title="Hủy vận đơn">
                           <XCircle size={14} />
                           Hủy
                         </button>
