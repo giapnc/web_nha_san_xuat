@@ -25,7 +25,7 @@ const BatchProductItems = ({ batch, onClose }) => {
         try {
             const token = localStorage.getItem('authToken');
             const response = await axios.get(
-                `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080'}/api/batches/${batch.id}/items`,
+                `${process.env.REACT_APP_API_URL || 'http://localhost:8080/api'}/batches/${batch.id}/items`,
                 {
                     headers: token ? { Authorization: `Bearer ${token}` } : {},
                 }
@@ -49,7 +49,7 @@ const BatchProductItems = ({ batch, onClose }) => {
         try {
             const token = localStorage.getItem('authToken');
             const response = await axios.get(
-                `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080'}/api/batches/${batch.id}/items/qr-codes`,
+                `${process.env.REACT_APP_API_URL || 'http://localhost:8080/api'}/batches/${batch.id}/items/qr-codes`,
                 {
                     headers: token ? { Authorization: `Bearer ${token}` } : {},
                     responseType: 'blob',
