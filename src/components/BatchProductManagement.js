@@ -63,7 +63,7 @@ const BatchProductManagement = () => {
         try {
             const token = localStorage.getItem('manufacturer_token');
             const response = await axios.get(
-                `${process.env.REACT_APP_API_URL}/api/batches/${batchId}/items/qr-codes`,
+                `${process.env.REACT_APP_API_URL}/batches/${batchId}/items/qr-codes`,
                 {
                     headers: token ? { Authorization: `Bearer ${token}` } : {},
                     responseType: 'blob',
@@ -133,7 +133,7 @@ const BatchProductManagement = () => {
         try {
             const token = localStorage.getItem('manufacturer_token');
             await axios.delete(
-                `${process.env.REACT_APP_API_URL}/api/batches/${batchToDelete.id}`,
+                `${process.env.REACT_APP_API_URL}/batches/${batchToDelete.id}`,
                 {
                     headers: token ? { Authorization: `Bearer ${token}` } : {},
                 }

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // JAVA SPRING BOOT BACKEND - CHỈ XỬ LÝ BLOCKCHAIN
-const BLOCKCHAIN_API_URL = process.env.REACT_APP_BLOCKCHAIN_API_URL || 'http://localhost:8080/api/blockchain';
+const BLOCKCHAIN_API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api/blockchain';
 
 // Create axios instance for blockchain backend
 const blockchainClient = axios.create({
@@ -24,7 +24,7 @@ blockchainClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor  
+// Response interceptor
 blockchainClient.interceptors.response.use(
   (response) => response.data,
   (error) => {
@@ -50,10 +50,10 @@ const blockchainService = {
         manufactureDate: batchData.manufactureDate || new Date().toISOString().split('T')[0],
         expiryDate: batchData.expiryDate,
       };
-      
+
       console.log('Issuing batch to Golang backend:', payload);
       const response = await blockchainClient.post('/manufacturer/batch', payload);
-      
+
       return {
         success: true,
         data: {
@@ -114,10 +114,10 @@ const blockchainService = {
         quantity: Number(shipmentData.quantity),
         trackingNumber: shipmentData.trackingInfo || `TRK-${Date.now()}`,
       };
-      
+
       console.log('Creating shipment to Golang backend:', payload);
       const response = await blockchainClient.post('/distributor/shipment', payload);
-      
+
       return {
         success: true,
         data: {
