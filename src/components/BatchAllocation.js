@@ -299,6 +299,12 @@ const BatchAllocation = () => {
       // Generate individual QR codes for each product in the batch
       const individualQRCodes = generateIndividualQRCodes(batchId, quantity)
 
+      const manufacturerUser = JSON.parse(
+        localStorage.getItem("manufacturer_user"),
+      )
+
+      const manufacturerName = manufacturerUser?.name
+
       const batchData = {
         id: batchId,
         productId: parseInt(batchForm.productId), // Ensure number
@@ -312,7 +318,7 @@ const BatchAllocation = () => {
         rawMaterialBatchNumber: batchForm.rawMaterialBatchNumber,
         rawMaterialAmountUsed: parseFloat(batchForm.rawMaterialAmountUsed) || 0,
         qrCodes: individualQRCodes,
-        manufacturer: "Dược Hậu Giang", // Updated manufacturer name
+        manufacturer: manufacturerName || "Dược Hậu Giang", // Use dynamic manufacturer name if available
         activeIngredient: product.activeIngredient,
         dosage: product.dosage,
         storageConditions: product.storageConditions,
