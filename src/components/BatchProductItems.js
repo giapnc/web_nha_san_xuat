@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Download, QrCode, Package, Calendar, CheckCircle, Clock } from 'lucide-react';
 import axios from 'axios';
 import './BatchProductItems.css';
+import { toast } from 'react-toastify';
 
 /**
  * Modal hiển thị tất cả QR codes của sản phẩm trong lô
@@ -65,7 +66,7 @@ const BatchProductItems = ({ batch, onClose }) => {
             link.remove();
         } catch (err) {
             console.error('Error downloading QR codes:', err);
-            alert('Lỗi khi tải QR codes: ' + err.message);
+            toast.error('Lỗi khi tải QR codes: ' + err.message);
         }
     };
 

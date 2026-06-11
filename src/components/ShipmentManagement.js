@@ -15,6 +15,7 @@ import {
 } from "lucide-react"
 import manufacturerService from "../services/apiService"
 import "./ShipmentManagement.css"
+import { toast } from "react-toastify"
 
 const ShipmentManagement = () => {
   const [shipments, setShipments] = useState([])
@@ -467,7 +468,12 @@ const ShipmentManagement = () => {
                         onClick={() =>
                           navigator.clipboard
                             .writeText(shipment.shipmentId ?? shipment.id)
-                            .then(() => alert("Copy thành công"))
+                            .then(() =>
+                              toast.success(
+                                "Copy thành công mã shippment " +
+                                  (shipment.shipmentId ?? shipment.id),
+                              ),
+                            )
                         }>
                         <Hash size={12} />
                         SHIP-{shipment.shipmentId || shipment.id}
@@ -481,10 +487,13 @@ const ShipmentManagement = () => {
                           backgroundColor: "#d4edda",
                           padding: "2px 6px",
                           borderRadius: "3px",
-                          display: "inline-block",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "4px",
                           fontSize: "0.8em",
                         }}>
-                        📦 {shipment.drugBatch?.batchNumber || "N/A"}
+                        <span>📦</span>
+                        <p>{shipment.drugBatch?.batchNumber || "N/A"}</p>
                       </div>
                     </td>
                     <td>{shipment.drugBatch?.drugName || "N/A"}</td>

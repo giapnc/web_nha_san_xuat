@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Package, Plus, Save, Check, X } from "lucide-react"
 import manufacturerService from "../services/apiService"
 import "./RawMaterialManagement.css"
+import { toast } from "react-toastify"
 
 const RawMaterialManagement = () => {
   const [rawMaterials, setRawMaterials] = useState([])
@@ -64,7 +65,7 @@ const RawMaterialManagement = () => {
         !newMaterial.materialName ||
         !newMaterial.quantity
       ) {
-        alert("Vui lòng điền các trường bắt buộc!")
+        toast.error("Vui lòng điền các trường bắt buộc!")
         return
       }
 
@@ -87,10 +88,10 @@ const RawMaterialManagement = () => {
         })
         fetchRawMaterials()
       } else {
-        alert(response.message)
+        toast.error(response.message)
       }
     } catch (err) {
-      alert("Lỗi tạo nguyên liệu: " + err.message)
+      toast.error("Lỗi tạo nguyên liệu: " + err.message)
     }
   }
 
@@ -105,10 +106,10 @@ const RawMaterialManagement = () => {
         if (response.success) {
           fetchRawMaterials()
         } else {
-          alert(response.message)
+          toast.error(response.message)
         }
       } catch (err) {
-        alert("Lỗi cập nhật: " + err.message)
+        toast.error("Lỗi cập nhật: " + err.message)
       }
     }
   }

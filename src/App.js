@@ -12,6 +12,8 @@ import LoginScreen from './components/auth/LoginScreen';
 import BatchProductManagement from './components/BatchProductManagement';
 
 import RawMaterialManagement from './components/RawMaterialManagement';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 // Auth wrapper component
 function AuthWrapper() {
@@ -56,6 +58,8 @@ function App() {
       <Router basename={process.env.PUBLIC_URL || ''}>
         <AuthWrapper />
       </Router>
+
+      <ToastContainer position="bottom-right" autoClose={3000} />
     </AuthProvider>
   );
 }
